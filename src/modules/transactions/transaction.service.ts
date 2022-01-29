@@ -1,8 +1,14 @@
 import * as transactionRepository from './transaction.repository';
 import { ITransaction } from './transaction.model';
 
-export const createTransaction = (body: ITransaction) => {
-    return transactionRepository.createTransaction(body);
+export const generateReferenceNumber = () => {
+    return `TL${Math.random().toString(36).substr(2, 16).toUpperCase()}`;
+}
+
+export const createTransaction = (body: any) => {
+    const transaction = { ...body, reference: generateReferenceNumber() }
+
+    return transactionRepository.createTransaction(transaction);
 }
 
 export const getTransactions = (name: string) => {

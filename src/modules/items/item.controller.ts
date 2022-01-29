@@ -20,7 +20,8 @@ export const getItems: RequestHandler = async (req, res) => {
         const { name } = req.query;
         const items = await itemService.getItems(name as unknown as string ?? '');
 
-        return res.status(200).json(items);
+        res.render('index', { items: items });
+        // return res.status(200).json(items);
     } catch (e) {
 
         return res.status(400).json({

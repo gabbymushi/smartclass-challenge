@@ -3,15 +3,14 @@ import { IItem } from '../items/item.model';
 import { IUser } from '../users/user.model';
 
 export enum ORDER_STATUSES {
-    PENDING = 0,
-    PARTIAL = 1,
+    ACTIVE = 1,
     COMPLETED = 2
 }
 
 export interface IOrder extends Document {
     item: IItem['_id'],
-    amount: string,
-    paidAmount: string,
+    amount: number,
+    paidAmount: number,
     status: Number,
     user: IUser['_id']
 }
@@ -36,12 +35,12 @@ const OrderSchema = new Schema<IOrder>({
     },
     paidAmount: {
         type: Number,
-        required: true
+        default: 0
     },
     status: {
         type: Number,
         enum: [ORDER_STATUSES],
-        default: ORDER_STATUSES.PENDING
+        default: ORDER_STATUSES.ACTIVE
     }
 },
     { timestamps: true }

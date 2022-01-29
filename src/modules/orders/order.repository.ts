@@ -4,20 +4,26 @@ export const createOrder = (body: IOrder) => {
     return Order.create(body);
 }
 
-export const getOrders = (keyword: string) => {
-    const search = new RegExp('.*' + keyword + '.*', 'i');
+export const getOrders = (user: string) => {
+    //const search = new RegExp('.*' + keyword + '.*', 'i');
 
-    return Order.find({ name: { $regex: search } });
+    return Order.find({ user, status: 1 })
+        .populate('item')
+        .sort({ createdAt: -1 });
 }
 
-export const getOrderById = (dealId: string) => {
-    return Order.findOne({ _id: dealId });
+export const getOrderById = (id: string) => {
+    return Order.findOne({ _id: id }).populate('item');
 }
 
-export const updateOrder = (dealId: string, body: IOrder) => {
-    return Order.findOneAndUpdate({ _id: dealId }, { ...body }, { new: true });
+export const completeOrder = (id: string, body: any) => {
+    return Order.findOneAndUpdate({ _id: id }, { ...body }, { new: true });
 }
 
-export const deleteOrder = (dealId: string) => {
-    return Order.deleteOne({ _id: dealId });
+export const updateOrder = (id: string, body: any) => {
+    return Order.findOneAndUpdate({ _id: id }, { ...body }, { new: true });
+}
+
+export const deleteOrder = (id: string) => {
+    return Order.deleteOne({ _id: id });
 }

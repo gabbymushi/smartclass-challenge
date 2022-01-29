@@ -12,12 +12,14 @@ export const middlewaresConfig = (app: express.Application) => {
     app.use(morgan('dev'));
     app.use(helment());
     app.use(express.json());
+    // in latest body-parser use like below.
+    app.use(express.urlencoded({ extended: true }));
     app.use(useragent.express());
 
     //check api status
-    app.get('/', (_, res) => {
-        res.status(200).send('ok');
-    })
+    /*  app.get('/', (_, res) => {
+         res.status(200).send('ok');
+     }) */
 }
 
 //export const I18n=i18n;
