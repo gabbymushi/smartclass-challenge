@@ -1,1 +1,1 @@
-# CRM-API
+# Smart Class Challenge
